@@ -10,11 +10,11 @@ from pydantic import Field
 
 class EwarsConfig(BaseConfig):
     prediction_periods: int = Field(
-        default=3,
+        default=4,
         description="Number of periods to predict into the future",
     )
     n_lags: list[int] = Field(
-        default_factory=lambda: [3],
+        default_factory=lambda: [1,1,3],
         description=(
             "Number of lags per covariate, in the same order as "
             "additional_continuous_covariates. A single-element list "
@@ -37,7 +37,7 @@ class EwarsConfig(BaseConfig):
     # POST /api/v1/configs with additional_continuous_covariates=[] to run
     # the population-only variant without forking this repo.
     additional_continuous_covariates: list[str] = Field(
-        default_factory=lambda: ["rainfall", "mean_temperature"],
+    default_factory=lambda: ["rainfall", "mean_temperature", "relative_humidity"],
         description=(
             "Continuous covariates to include as lagged predictors in the INLA model. "
             "Defaults match the legacy CHAP-EWARS model which used rainfall and "
@@ -55,24 +55,23 @@ runner: ShellModelRunner[EwarsConfig] = ShellModelRunner(
 )
 
 info = MLServiceInfo(
-    id="chapkit-ewars-model",
-    display_name="CHAP-EWARS Model (chapkit)",
+    id="malaria-mensal-ewars",
+    display_name=" Malaria EWARS Model (Saudigitus)",
     version="1.0.0",
     description=(
-        "Chapkit-based version of the CHAP-EWARS model, runnable alongside the legacy EWARS model. "
-        "Modified version of the World Health Organization (WHO) EWARS model. "
-        "EWARS is a Bayesian hierarchical model implemented with the INLA library."
+        "Uma re-adaptação do modelo EWARS da OMS, desenvolvido pela equipe CHAP core."
+        "Este modelo é uma implementação para modelagem e previsão de casos de malária. "
+        "O EWARS é um modelo hierárquico Bayesiano implementado com a biblioteca INLA."
     ),
     model_metadata=ModelMetadata(
-        author="CHAP team",
+        author="Fernando Inácio",
         author_assessed_status=AssessedStatus.orange,
-        organization="HISP Centre, University of Oslo",
-        organization_logo_url="https://landportal.org/sites/default/files/2024-03/university_of_oslo_logo.png",
-        contact_email="knut.rand@dhis2.org",
+        organization="Saudigitus, Serviços de Saúde Digital",
+        organization_logo_url="",
+        contact_email="finacio@saudigitus.org",
         citation_info=(
-            'Climate Health Analytics Platform. 2025. "CHAP-EWARS model". '
-            "HISP Centre, University of Oslo. "
-            "https://dhis2-chap.github.io/chap-core/external_models/overview_of_supported_models.html"
+            '2026. "Malaria-EWARS model". '
+            "Saudigitus. "
         ),
     ),
     period_type=PeriodType.monthly,
