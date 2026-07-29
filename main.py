@@ -10,11 +10,11 @@ from pydantic import Field
 
 class EwarsConfig(BaseConfig):
     prediction_periods: int = Field(
-        default=4,
+        default=6,
         description="Number of periods to predict into the future",
     )
     n_lags: list[int] = Field(
-        default_factory=lambda: [1,1,3],
+        default_factory=lambda: [4,4,12],
         description=(
             "Number of lags per covariate, in the same order as "
             "additional_continuous_covariates. A single-element list "
@@ -55,8 +55,8 @@ runner: ShellModelRunner[EwarsConfig] = ShellModelRunner(
 )
 
 info = MLServiceInfo(
-    id="malaria-mensal-ewars",
-    display_name=" Malaria EWARS Model (Saudigitus)",
+    id="malaria-semanal-ewars",
+    display_name=" Malaria EWARS Model [Weekly] (Saudigitus)",
     version="1.0.0",
     description=(
         "Uma re-adaptação do modelo EWARS da OMS, desenvolvido pela equipe CHAP core."
@@ -74,7 +74,7 @@ info = MLServiceInfo(
             "Saudigitus. "
         ),
     ),
-    period_type=PeriodType.monthly,
+    period_type=PeriodType.weekly,
     allow_free_additional_continuous_covariates=True,
     required_covariates=["population"],
     min_prediction_periods=0,
