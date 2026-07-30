@@ -1,5 +1,5 @@
 [project]
-name = "malaria-mensal-ewars"
+name = "chapkit-ewars-malaria"
 version = "1.0.0"
 description = "Uma re-adaptação do modelo EWARS da OMS, desenvolvido pela equipe CHAP core. Este modelo é uma implementação para modelagem e previsão de casos de malária"
 requires-python = ">=3.13"
