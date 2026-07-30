@@ -1,5 +1,8 @@
 services:
   malaria-mensal-ewars:
-    build: .
+    build: https://github.com/fernandoinacio/chapkit_ewars_model.git
     ports:
-      - "8000:8000"
+      - "8001:8000"
+    environment:
+      - CHAP_CORE_URL=http://chap:8000
+    entrypoint: ["/bin/sh", "-c", "uv lock && uv sync --no-dev && uvicorn main:app --host 0.0.0.0 --port 8000"]
