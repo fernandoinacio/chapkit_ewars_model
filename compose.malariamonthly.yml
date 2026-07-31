@@ -4,4 +4,5 @@ services:
     ports:
       - "8001:8000"
     environment:
+      - SERVICEKIT_ORCHESTRATOR_URL=http://chap:8000
       - CHAP_CORE_URL=http://chap:8000
