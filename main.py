@@ -67,7 +67,7 @@ info = MLServiceInfo(
         author="Fernando Inácio",
         author_assessed_status=AssessedStatus.orange,
         organization="Saudigitus, Serviços de Saúde Digital",
-        organization_logo_url="",
+        organization_logo_url=None,
         contact_email="finacio@saudigitus.org",
         citation_info=(
             '2026. "Malaria-EWARS model". '
